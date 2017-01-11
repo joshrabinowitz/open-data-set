@@ -6,7 +6,6 @@ use strict;
 use warnings;
 use Getopt::Long; 
 use File::Basename;
-use File::Slurp;
 use JSON qw(from_json);
 use Data::Dump qw(dump);
 use Path::Tiny;
@@ -19,7 +18,7 @@ my $verbose;
 
 # Usage() : returns usage information
 sub Usage {
-    "$prog [--verbose]\n";
+    "$prog [--verbose] JSON_FILES\n";
     #"$prog [--verbose] [--dryrun]\n";
 }
 
@@ -36,9 +35,9 @@ sub main {
 	my @htmls;
     for my $filename (@ARGV) {
 		print "reading $filename\n";
-        my $content = path($filename)->slurp_utf8( $filename ); # read utf8 correctly
+        my $content = path($filename)->slurp_utf8( ); # read utf8 correctly
 		print "converting json to data\n";
-        my $data = from_json( $content ); #, { utf8  => 1 } );
+        my $data = from_json( $content ); 
 		print "converted\n";
 
         for my $row (@$data) {
