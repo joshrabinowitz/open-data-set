@@ -43,49 +43,11 @@ sub main {
         for my $row (@$data) {
             my ($name, $sku) = ($row->{name}, $row->{sku});
             if ($name) {
-                #print "$name, $sku\n";
                 my $title = $name;
                 $title =~ s/['"]//g;
                 print "insert into autocomplete set title='$title';\n";
-                #my $html_filename = "$sku.html";
-                #path( "html/$html_filename" )->spew_utf8( create_sku_html( $sku, $name ) );
-                #push( @htmls, $html_filename );
             }
         }
-        #path( "html/index.html" )->spew_utf8( create_index_html( \@htmls ) );
     }
 }
 
-sub create_index_html {
-	my $htmls = shift;
-	my $content = qq{
-	<HTML>
-		<HEAD> 
-			<TITLE>index</TITLE> 
-		</HEAD> 
-		<BODY>
-	};
-	# append link to each data page
-	for my $f (@$htmls) {
-		$content .= qq{<a href="$f">$f</a>\n};
-	}
-	$content .= qq{
-		</BODY>
-		</HTML> 
-	};
-	return $content;
-}
-sub create_sku_html {
-    my ($sku, $name) = @_;
-    my $html = qq{
-<HTML>
-	<HEAD> 
-		<TITLE>$name</TITLE> 
-	</HEAD> 
-	<BODY>
-		$name<br>
-		SKU: $sku<br>
-	</BODY>
-</HTML> 
-    };
-}
